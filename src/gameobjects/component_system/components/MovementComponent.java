@@ -7,7 +7,7 @@ import org.joml.Vector3f;
 
 public class MovementComponent extends Component {
 
-	private float movementSpeed = 3f;
+	private float movementSpeed = 2.2f;
 	private float rotationSpeed = 2f;
 	private Vector3f rotation;
 

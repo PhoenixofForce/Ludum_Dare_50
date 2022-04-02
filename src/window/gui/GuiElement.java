@@ -150,18 +150,6 @@ public abstract class GuiElement {
 		return out;
 	}
 
-	protected float getWidth(float w) {
-		float out = 0;
-
-		if(parent != null && Math.abs(w) <= 1) {
-			out += w * parent.getWidth();
-		} else {
-			out = w;
-		}
-
-		return out;
-	}
-
 	public float getRawHeight() {
 		return height;
 	}
@@ -177,18 +165,6 @@ public abstract class GuiElement {
 			out += height * parent.getHeight();
 		} else {
 			out = height;
-		}
-
-		return out;
-	}
-
-	protected float getHeight(float h) {
-		float out = 0;
-
-		if(parent != null && Math.abs(h) <= 1) {
-			out += h * parent.getHeight();
-		} else {
-			out = h;
 		}
 
 		return out;
@@ -219,7 +195,11 @@ public abstract class GuiElement {
 			onClick(event, button);
 		}
 
-		return out == null? new float[]{getCenterX(), getCenterY()}: out;
+		float xOff = xAnchor.calculateOffset(getWidth());
+		float yOff = yAnchor.calculateOffset(getHeight());
+		return out == null?
+				new float[]{getCenterX() - xOff + Math.signum(xOff), getCenterY() - yOff + Math.signum(yOff)}:
+				out;
 	}
 
 	public void onClick(int event, int button) {
@@ -232,12 +212,12 @@ public abstract class GuiElement {
 		float x = InputHandler.mouseX;
 		float y = InputHandler.mouseY;
 
-		/*if(containsPoint(x, y)) {
+		if(containsPoint(x, y)) {
 			for(GuiElement child: children) {
 				if(child.containsPoint(x, y)) return false;
 			}
 			return true;
-		}*/
+		}
 
 		return false;
 	}

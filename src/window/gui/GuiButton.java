@@ -80,7 +80,7 @@ public class GuiButton extends GuiElement {
 		uniform.setTextures(atlas.getTexture());
 		uniform.setVector3fs(new Vector3f(1));
 		uniform.setVector4fs(bounds);
-		uniform.setFloats(1);
+		uniform.setFloats(1, 0);
 		Renderer.renderArrays(ShaderHandler.ShaderType.DEFAULT, ScreenRect.getInstance(), uniform);
 	}
 
@@ -99,25 +99,5 @@ public class GuiButton extends GuiElement {
 		size.update();
 		this.setRawWidth(widthSave * size.getValue());
 		this.setRawHeight(heightSave * size.getValue());
-	}
-
-	@Override
-	protected boolean containsPoint(float x, float y) {
-		float width = getWidth(Math.max(widthSave, size.getValue() * widthSave));
-		float height = getHeight(Math.max(heightSave, size.getValue() * heightSave));
-
-		float lowerX = getCenterX() - width / 2f;
-		float lowerY = getCenterY() - height / 2f;
-
-		boolean out = x >= lowerX && x < lowerX + width &&
-				y >= lowerY && y < lowerY + height;
-
-		/*
-		System.out.println(lowerX + " " + x + " " + (lowerX + width));
-		System.out.println(lowerY + " " + y + " " + (lowerY + height));
-		System.out.println(out);
-		 */
-
-		return out;
 	}
 }

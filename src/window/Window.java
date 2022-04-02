@@ -237,12 +237,9 @@ public class Window extends BasicColorGuiElement {
 	public void loadGui() {
 		this.addClickListener((event, button) -> {
 			if(event == GLFW_PRESS) {
-				float clickX = (clickStart[0] / width) * 2 - 1;
-				float clickY = (clickStart[1]) / height * 2 - 1;
+				float[] mapClick = translateToMapSpace(clickStart[0], clickStart[1]);
 
-				clickX = clickX * 1.8f + cam.getPosition().x;
-				clickY = clickY * 1.25f + cam.getPosition().y;
-
+				map.handleClick(mapClick[0], mapClick[1]);
 			}
 		});
 
@@ -259,5 +256,15 @@ public class Window extends BasicColorGuiElement {
 		});
 
 		text = new GuiText(this, Anchor.TOP_LEFT, 20, -20, new TextureAtlasFont("Font"), 16).addText("test").build();
+	}
+
+	public float[] translateToMapSpace(float x, float y) {
+		float clickX = (x / width) * 2 - 1;
+		float clickY = (y / height) * 2 - 1;
+
+		clickX = -clickX * 2.25f + cam.getPosition().x;
+		clickY = clickY * 1.25f + cam.getPosition().y;
+
+		return new float[]{clickX, clickY};
 	}
 }

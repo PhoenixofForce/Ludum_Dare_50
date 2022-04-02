@@ -24,6 +24,8 @@ public class ModelRenderComponent extends RenderingComponent {
 	private Renderable model;
 	private String texture;
 
+	private boolean isHovered = false;
+
 	public ModelRenderComponent(Entity e, Renderable model, String texture) {
 		super(e);
 		this.model = model;
@@ -40,9 +42,13 @@ public class ModelRenderComponent extends RenderingComponent {
 		uniform.setVector3fs(new Vector3f(1, 0, 1));
 		uniform.setTextures(atlas.getTexture());
 		uniform.setVector4fs(atlas.getTextureBounds(texture));
-		uniform.setFloats(0);
+		uniform.setFloats(0, isHovered? 1: 0);
 
 		Renderer.render(ShaderHandler.ShaderType.DEFAULT, model, uniform);
+	}
+
+	public void setHovered(boolean isHovered) {
+		this.isHovered = isHovered;
 	}
 
 }
