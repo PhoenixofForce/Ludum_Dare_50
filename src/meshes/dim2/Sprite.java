@@ -45,7 +45,7 @@ public class Sprite {
 
 		//Adding texture coordinates to list
 		for(int i = 0; i < c; i++) {
-			textures.add("textures_" + texture + "_" + i);
+			textures.add(texture + "_" + i);
 		}
 	}
 
@@ -56,7 +56,7 @@ public class Sprite {
 	 * @param currentTime the real time when the the texture is needed (in ms)
 	 * @return coordinates from current sprite
 	 */
-	public int getTexture(long startTime, long currentTime) {
+	public String getTexture(long startTime, long currentTime) {
 		long timeRuning = currentTime - startTime;
 		long totalAnimationTime = (long) time * textures.size();
 
@@ -65,7 +65,7 @@ public class Sprite {
 
 		int index = (int) Math.floor(indexPercentile * textures.size());
 
-		return TextureHandler.getTexture(textures.get(index));
+		return textures.get(index);
 	}
 
 	@Override

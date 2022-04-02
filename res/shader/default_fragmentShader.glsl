@@ -7,6 +7,7 @@ layout(location = 40) uniform vec3 color;
 //import util_conditional
 
 in vec2 fragTexCoord;
+in vec2 cleanFragTex;
 
 out vec4 finalColor;
 

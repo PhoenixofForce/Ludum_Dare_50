@@ -11,6 +11,7 @@ import org.lwjgl.glfw.GLFW;
 import rendering.Renderer;
 import rendering.ShaderHandler;
 import rendering.Uniform;
+import utils.Constants;
 import window.Window;
 
 public class GuiButton extends GuiElement {

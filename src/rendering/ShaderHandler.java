@@ -18,7 +18,8 @@ public class ShaderHandler {
 	public enum ShaderType {
 		DEFAULT("default_vertexShader", "default_fragmentShader"),
 		PARTICLE("particle_vertexShader", "particle_fragmentShader"),
-		TEXT("text_vertexShader", "text_fragmentShader");
+		TEXT("text_vertexShader", "text_fragmentShader"),
+		SLEEPBAR("default_vertexShader", "sleepbar_fragmentShader");
 		;
 
 		private final String vertexFileName, fragmentFileName;

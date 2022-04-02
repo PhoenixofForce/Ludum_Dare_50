@@ -14,6 +14,7 @@ layout(location = 1) in vec2 cTexCoord;
 layout(location = 2) in vec3 vNormal;
 
 out vec2 fragTexCoord;
+out vec2 cleanFragTex;
 
 vec2 atlasUv(vec2 uv, sampler2D spriteSheet, vec4 bounds, float flipY) {
     vec2 atlasSize = textureSize(spriteSheet, 0);
@@ -27,4 +28,5 @@ void main()
 {
     gl_Position = projection * view * transformation * cPosition;
     fragTexCoord = atlasUv(cTexCoord, atlas, textureBounds, flipYAtlas);
+    cleanFragTex = cTexCoord;
 }
