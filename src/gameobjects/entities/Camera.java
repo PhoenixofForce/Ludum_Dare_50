@@ -4,20 +4,23 @@ import gameobjects.Entity;
 import gameobjects.component_system.components.LookingComponent;
 import gameobjects.component_system.components.MovementComponent;
 import gameobjects.component_system.components.PositionComponent;
-import gameobjects.input_provider.PlayerInputProvider;
+import gameobjects.component_system.components.RestrictedPositionComponent;
+import gameobjects.input_provider.ExternInputProvider;
 import org.joml.Vector3f;
 
 public class Camera extends Entity {
 
+	private ExternInputProvider provider;
 	public Camera() {
+		provider = new ExternInputProvider();
 		super.init();
 	}
 
 	@Override
 	protected void addComponents() {
-		this.addComponent(new PositionComponent(this, new Vector3f(0, 0, 0)));
+		this.addComponent(new RestrictedPositionComponent(this, new Vector3f(0, 0.75f, 0.75f)).setXRestriction(-8f, 0));
 		this.addComponent(new LookingComponent(this, new Vector3f(0, 0, 1)));
-		this.addComponent(new MovementComponent(this, new PlayerInputProvider()));
+		this.addComponent(new MovementComponent(this, provider));
 	}
 
 	public Vector3f getPosition() {
@@ -30,5 +33,9 @@ public class Camera extends Entity {
 
 	public Vector3f getUp() {
 		return getComponent(LookingComponent.class).get().getUpAxis();
+	}
+
+	public ExternInputProvider getInputProvider() {
+		return provider;
 	}
 }

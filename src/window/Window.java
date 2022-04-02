@@ -2,6 +2,7 @@ package window;
 
 import gameobjects.entities.Camera;
 import gameobjects.particles.ParticleSpawner;
+import map.GameMap;
 import meshes.loader.AssetLoader;
 import meshes.ScreenRect;
 import org.joml.Matrix4f;
@@ -15,15 +16,12 @@ import utils.Constants;
 import utils.Options;
 import utils.TimeUtils;
 import window.font.TextureAtlasFont;
-import window.gui.Anchor;
-import window.gui.BasicColorGuiElement;
-import window.gui.GuiElement;
-import window.gui.GuiText;
+import window.gui.*;
+import window.gui.listener.MouseClickListener;
 import window.inputs.InputHandler;
 
 import java.nio.*;
-import java.nio.charset.Charset;
-import java.util.Random;
+import java.util.Arrays;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -43,6 +41,7 @@ public class Window extends BasicColorGuiElement {
 	private final String title = "This is an engine!";
 
 	private Camera cam;
+	private GameMap map;
 
 	public Window() {
 		super(null, 0, 0, 0, 0);
@@ -99,27 +98,38 @@ public class Window extends BasicColorGuiElement {
 
 		GL.createCapabilities();
 		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_CULL_FACE);
+		glDisable(GL_CULL_FACE);
+		glDisable(GL_BLEND);
 		glDepthFunc(GL_LEQUAL);
 
 		ShaderHandler.initShader();
 		AssetLoader.loadAll();
 		loadGui();
 
-		ParticleSpawner.getNewSpawner(new Vector3f(0, 5, 0), ParticleSpawner.DEFAULT);
-
 		glfwShowWindow(window);
-		glClearColor(0, 0, 0, 0.0f);
+		glClearColor(46.0f / 255.0f, 34.0f / 255.0f, 47.0f / 255.0f, 1);
 
 		cam = new Camera();
+		map = new GameMap();
+		map.init();
 	}
 
+	private float[] clickStart;
 	private void initCallbacks() {
 		InputHandler.callbacks();
 
 		glfwSetMouseButtonCallback(window, (window, button, action, mods) -> {
-			float[] mousePosition = InputHandler.getMousePosition();
-			handleMouseButton(action, button, mousePosition[0], mousePosition[1]);
+			if(action == GLFW_PRESS) {
+				clickStart = InputHandler.getMousePosition();
+				clickStart = handleMouseButton(action, button, clickStart[0], clickStart[1]);
+			} else {
+				handleMouseButton(action, button, clickStart[0], clickStart[1]);
+			}
+
+
+			if(action == GLFW_RELEASE) {
+				clickStart = new float[]{-2f, -2f};
+			}
 		});
 
 		glfwSetWindowSizeCallback(window, (window, width, height) -> {
@@ -157,16 +167,15 @@ public class Window extends BasicColorGuiElement {
 		InputHandler.update();
 	}
 
-	private GuiText text;
-
 	private void update(long dt) {
+		if(text != null) {
+			text.clear().addText("(" + cam.getPosition().x + " | " + cam.getPosition().y +  ")").build();
+		}
+
 		updateGui(dt);
 		ParticleSpawner.updateAll(dt);
 		cam.update(dt);
-
-		if(Constants.RUNTIME >= 500) {
-			text.clear().addText("TICKS: ").addText(Constants.RUNTIME + "", Constants.RUNTIME > 1000? new Vector3f(1, 0, 0): (Constants.RUNTIME > 750? new Vector3f(1, 1, 0): new Vector3f(0, 0, 1))).build();
-		}
+		map.update(dt);
 
 		Constants.RUNTIME++;
 	}
@@ -177,19 +186,7 @@ public class Window extends BasicColorGuiElement {
 		Matrix4f projection_matrix = new Matrix4f().perspective((float)Math.PI/3, ((float) width)/height,0.001f, 1250f);
 		Matrix4f view_matrix = new Matrix4f().lookAt(cam.getPosition(), new Vector3f(cam.getLookingDirection()).add(cam.getPosition()), cam.getUp());
 
-		/*
-		Matrix4f transformationMatrix = new Matrix4f(
-				1, 0, 0, 0,
-				0, 1, 0, 0,
-				0, 0, 1, 0,
-				0, 0, 0, 1);
-
-		Uniform uniform = new Uniform();
-		uniform.setMatrices(projection_matrix, view_matrix, transformationMatrix);
-		uniform.setVector3fs(new Vector3f(1, 0, 1));
-		Renderer.render(ShaderHandler.ShaderType.DEFAULT, ObjHandler.loadOBJ("pawn"), uniform);
-		 */
-
+		map.render(projection_matrix, view_matrix);
 		ParticleSpawner.renderAll(projection_matrix, view_matrix);
 		super.renderGui();
 
@@ -197,6 +194,8 @@ public class Window extends BasicColorGuiElement {
 	}
 
 	private void cleanUp() {
+		map.cleanUp();
+
 		// Free the window callbacks and destroy the window
 		glfwFreeCallbacks(window);
 		glfwDestroyWindow(window);
@@ -234,24 +233,31 @@ public class Window extends BasicColorGuiElement {
 		return height;
 	}
 
+	private GuiText text;
 	public void loadGui() {
-		GuiElement healtBar = new BasicColorGuiElement(this, Anchor.BEGIN, Anchor.BEGIN, 20, 20, 200, 20);
-		GuiElement staminaBar = new BasicColorGuiElement(this, Anchor.BOTTOM_RIGHT, -20, 20, 200, 20);
-		GuiElement manaBar = new BasicColorGuiElement(this, Anchor.BOTTOM_CENTER, 0.5f, 20, 200, 20);
-		GuiElement currentMana = new BasicColorGuiElement(manaBar, Anchor.TOP_LEFT, 0, 1, 0.3f, 20);
+		this.addClickListener((event, button) -> {
+			if(event == GLFW_PRESS) {
+				float clickX = (clickStart[0] / width) * 2 - 1;
+				float clickY = (clickStart[1]) / height * 2 - 1;
 
-		GuiElement crosshair = new BasicColorGuiElement(this, 0.5f, 0.5f, 10, 10);
+				clickX = clickX * 1.8f + cam.getPosition().x;
+				clickY = clickY * 1.25f + cam.getPosition().y;
 
-		text = new GuiText(this, Anchor.TOP_LEFT, 20, -20, 450, new TextureAtlasFont("Font"), 16f, 2000)
-				.addText("Phoenix", new Vector3f(1, 0, 0))
-				.addText("of", new Vector3f(0, 1, 0), 0.02f)
-				.addText("Force", new Vector3f(0, 0, 1))
-				.newLine()
-				.addText("OneLongLineForMultipleLines")
-				.newLine()
-				.addText("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam")
-				.newLine()
-				.addText("Test Test2")
-				.build();
+			}
+		});
+
+
+		GuiButton button_left = new GuiButton(this, Anchor.BOTTOM_LEFT, 20, 20, 100, 100, "arrow_left");
+		GuiButton button_right = new GuiButton(this, Anchor.BOTTOM_RIGHT, -20, 20, 100, 100, "arrow_right");
+
+		button_left.addClickListener((event, button) -> {
+			cam.getInputProvider().setMoveLeft(event != GLFW_RELEASE);
+		});
+
+		button_right.addClickListener((event, button) -> {
+			cam.getInputProvider().setMoveRight(event != GLFW_RELEASE);
+		});
+
+		text = new GuiText(this, Anchor.TOP_LEFT, 20, -20, new TextureAtlasFont("Font"), 16).addText("test").build();
 	}
 }

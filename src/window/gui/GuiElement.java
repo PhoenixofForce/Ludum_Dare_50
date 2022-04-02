@@ -1,5 +1,6 @@
 package window.gui;
 
+import window.gui.listener.MouseClickListener;
 import window.inputs.InputHandler;
 import window.Window;
 
@@ -40,6 +41,8 @@ public abstract class GuiElement {
 
 	protected List<GuiElement> children;
 	protected Anchor xAnchor, yAnchor;
+
+	private MouseClickListener mouseClickListener;
 
 	public GuiElement(GuiElement parent, Anchor xAnchor, Anchor yAnchor, float xOffset, float yOffset, float width, float height) {
 		this.parent = parent;
@@ -147,6 +150,18 @@ public abstract class GuiElement {
 		return out;
 	}
 
+	protected float getWidth(float w) {
+		float out = 0;
+
+		if(parent != null && Math.abs(w) <= 1) {
+			out += w * parent.getWidth();
+		} else {
+			out = w;
+		}
+
+		return out;
+	}
+
 	public float getRawHeight() {
 		return height;
 	}
@@ -167,6 +182,18 @@ public abstract class GuiElement {
 		return out;
 	}
 
+	protected float getHeight(float h) {
+		float out = 0;
+
+		if(parent != null && Math.abs(h) <= 1) {
+			out += h * parent.getHeight();
+		} else {
+			out = h;
+		}
+
+		return out;
+	}
+
 	protected float toScreenSpace(float value, float length) {
 		float out = value / length;
 		return out * 2 - 1;
@@ -176,34 +203,41 @@ public abstract class GuiElement {
 		children.add(element);
 	}
 
-	protected void handleMouseButton(int event, int button, float x, float y) {
+	protected float[] handleMouseButton(int event, int button, float x, float y) {
+		float[] out = null;
 		boolean isClickOnChild = false;
 
 		for(GuiElement child: children) {
 			if(child.containsPoint(x, y)) {
 				isClickOnChild = true;
-				child.handleMouseButton(event, button, x, y);
+				out = child.handleMouseButton(event, button, x, y);
 				break;
 			}
 		}
 
 		if(!isClickOnChild) {
-			if(event == GLFW_RELEASE) onClick(button);
+			onClick(event, button);
 		}
+
+		return out == null? new float[]{getCenterX(), getCenterY()}: out;
 	}
 
-	public void onClick(int button) { }
+	public void onClick(int event, int button) {
+		if(mouseClickListener != null) {
+			mouseClickListener.onClick(event, button);
+		}
+	}
 
 	protected boolean isMouseEntered() {
 		float x = InputHandler.mouseX;
 		float y = InputHandler.mouseY;
 
-		if(containsPoint(x, y)) {
+		/*if(containsPoint(x, y)) {
 			for(GuiElement child: children) {
 				if(child.containsPoint(x, y)) return false;
 			}
 			return true;
-		}
+		}*/
 
 		return false;
 	}
@@ -225,5 +259,9 @@ public abstract class GuiElement {
 		 */
 
 		return out;
+	}
+
+	public void addClickListener(MouseClickListener listener) {
+		this.mouseClickListener = listener;
 	}
 }

@@ -10,15 +10,13 @@ public class AssetLoader {
 	}
 
 	public static void loadTextures() {
-		//TODO:
-		TextureHandler.loadImagePng("kenney_grass", "kenney_grass", Optional.empty());
+		TextureHandler.loadPixelTextureAtlasPNG("textures", "textures", Optional.empty());
 		TextureHandler.loadPixelTextureAtlasPNG("Font", "Font", Optional.empty());
 	}
 
 	public static void loadModels() {
 		//TODO:
-		ObjHandler.loadOBJ("pawn");
-		ObjHandler.loadOBJWithoutTexture("cube");
+		ObjHandler.loadOBJWithoutTexture("plane");
 	}
 
 	public static void unloadAll() {

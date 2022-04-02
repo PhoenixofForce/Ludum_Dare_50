@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //BasicColorGuiElement for Debug purposes
-public class GuiText extends BasicColorGuiElement {
+public class GuiText extends GuiElement {
 
 	private Font font;
 
@@ -64,7 +64,7 @@ public class GuiText extends BasicColorGuiElement {
 	}
 
 	public GuiText(GuiElement parent, Anchor[] anchors, float xOff, float yOff, Font font, float fontSize) {
-		this(parent, anchors, xOff, yOff, font, fontSize, 2000);
+		this(parent, anchors, xOff, yOff, font, fontSize, 0);
 	}
 
 	public GuiText(GuiElement parent, Anchor[] anchors, float xOff, float yOff, Font font, float fontSize, long writerDuration) {
@@ -94,7 +94,7 @@ public class GuiText extends BasicColorGuiElement {
 	@Override
 	public void renderComponent() {
 		if(model != null) {
-			super.renderComponent();
+			//super.renderComponent();
 			//(translationX, translationY) needs to be the center of the first char
 			//getCenterX points to center of the whole text
 			//-getWidth/2 to the left side of the first letter

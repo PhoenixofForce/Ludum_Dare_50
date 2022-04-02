@@ -6,9 +6,9 @@ in float charID;
 
 out vec4 finalColor;
 
-layout(location = 100) uniform sampler2D atlas;
-layout(location = 205) uniform float maxChars;
-layout(location = 206) uniform float writerProgess;
+layout(location = 10) uniform sampler2D atlas;
+layout(location = 25) uniform float maxChars;
+layout(location = 26) uniform float writerProgess;
 
 void main() {
     vec4 texColor = texture(atlas, fragTexCoord);
