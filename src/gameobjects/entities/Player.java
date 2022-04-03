@@ -14,7 +14,8 @@ public class Player extends Entity {
 
 	public static final Sprite walk = new Sprite(100, "player_walk", 3),
 			idle = new Sprite("player_idle_0"),
-			juggling = new Sprite(100, "player_juggle", 9)
+			juggling = new Sprite(100, "player_juggle", 9),
+			reading = new Sprite("player_book");
 	;
 
 	private float x, y;

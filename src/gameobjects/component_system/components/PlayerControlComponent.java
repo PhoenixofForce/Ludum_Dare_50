@@ -56,11 +56,11 @@ public class PlayerControlComponent extends Component {
 			position.add(new Vector3f(0, 0, dir * dts));
 
 			p.setSprite(Player.walk);
-
 			return;
 		}
 
 		currentScene.activate();
+
 		Sprite sprite = currentScene.getCurrentSprite();
 		p.setSprite(sprite == null? Player.idle: sprite);
 

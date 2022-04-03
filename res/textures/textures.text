@@ -1,8 +1,21 @@
-44
-bar_mask 0 0 16 4
-bar_anim_0 0 4 16 4
-bar_anim_1 0 8 16 4
-bar_anim_2 0 12 16 4
+59
+bar_mask 448 256 64 16
+bar_anim_0 448 0 64 16
+bar_anim_1 448 16 64 16
+bar_anim_2 448 32 64 16
+bar_anim_3 448 48 64 16
+bar_anim_4 448 64 64 16
+bar_anim_5 448 80 64 16
+bar_anim_6 448 96 64 16
+bar_anim_7 448 112 64 16
+bar_anim_8 448 128 64 16
+bar_anim_9 448 144 64 16
+bar_anim_10 448 160 64 16
+bar_anim_11 448 176 64 16
+bar_anim_12 448 192 64 16
+bar_anim_13 448 208 64 16
+bar_anim_14 448 224 64 16
+bar_anim_15 448 240 64 16
 arrow_left 0 32 16 16
 arrow_right 16 32 16 16
 discs_used 64 32 16 16
@@ -43,3 +56,5 @@ player_juggle_5 272 352 48 48
 player_juggle_6 320 352 48 48
 player_juggle_7 368 352 48 48
 player_juggle_8 416 352 48 48
+player_tv 32 400 48 48
+player_book 112 400 48 48

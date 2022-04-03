@@ -2,7 +2,9 @@ package map;
 
 import gameobjects.Entity;
 import gameobjects.entities.Basic2DEntity;
+import gameobjects.entities.Clock;
 import gameobjects.entities.Player;
+import map.cutscenes.BookCutscene;
 import map.cutscenes.Cutscene;
 import map.cutscenes.JuggleCutscene;
 import maths.MathUtils;
@@ -21,6 +23,9 @@ public class GameMap implements GameLoopObject {
 
 	public Basic2DEntity juggleBalls;
 	public Basic2DEntity chair;
+	public Basic2DEntity bookcase;
+
+	public Clock clock;
 
 	public GameMap() {
 		entities = new ArrayList<>();
@@ -28,6 +33,7 @@ public class GameMap implements GameLoopObject {
 
 	@Override
 	public void init() {
+		clock = new Clock();
 
 		for(int x = 0; x < 16; x++) {
 			entities.add(new Basic2DEntity(-x * 0.5f, 0, "floor"));
@@ -54,7 +60,9 @@ public class GameMap implements GameLoopObject {
 		chair = new Basic2DEntity(-2.5f, 0.75f, 1, 2, "chair_used", false);
 		entities.add(chair);
 
-		entities.add(new Basic2DEntity(-3.3f, 1f, 1, 3, "books", true));
+		bookcase = new Basic2DEntity(-3.3f, 1f, 1, 3, "books", new BookCutscene());
+		entities.add(bookcase);
+
 		entities.add(new Basic2DEntity(-5.5f, 0.5f, "discs", true));
 		entities.add(new Basic2DEntity(-6.25f, 0.75f, 2, 2, "tv", true));
 
@@ -66,6 +74,8 @@ public class GameMap implements GameLoopObject {
 
 	@Override
 	public void update(long dt) {
+		clock.update(dt);
+
 		float[] mouse = Window.INSTANCE.translateToMapSpace(InputHandler.mouseX, InputHandler.mouseY);
 		entities.forEach(e -> e.hoverOver(mouse[0], mouse[1]));
 

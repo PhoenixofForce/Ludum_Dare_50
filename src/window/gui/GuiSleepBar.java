@@ -16,7 +16,7 @@ public class GuiSleepBar extends GuiElement {
 
 	private float sleepValue = 0;
 
-	private Sprite animation = new Sprite(200, "bar_anim", 3);
+	private Sprite animation = new Sprite(200, "bar_anim", 16);
 	private long startTime = TimeUtils.getTime();
 
 	public GuiSleepBar(GuiElement parent, Anchor xAnchor, Anchor yAnchor, float xOffset, float yOffset, float width, float height) {

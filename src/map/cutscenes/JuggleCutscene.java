@@ -7,10 +7,8 @@ import window.Window;
 
 public class JuggleCutscene extends Cutscene {
 
-	private Basic2DEntity juggleBalls;
 
 	public JuggleCutscene() {
-		this.juggleBalls = Window.INSTANCE.map.juggleBalls;
 	}
 
 	@Override
@@ -47,7 +45,7 @@ public class JuggleCutscene extends Cutscene {
 
 				dialogueTextBox.clear(50, 1500).addText(text).build();
 			} else if(stage == 2) {
-				juggleBalls.hide();
+				Window.INSTANCE.map.juggleBalls.hide();
 			}
 
 			else if(stage == 5) {
@@ -61,7 +59,7 @@ public class JuggleCutscene extends Cutscene {
 	@Override
 	public void deactivate() {
 		super.deactivate();
-		juggleBalls.unhide();
+		Window.INSTANCE.map.juggleBalls.unhide();
 	}
 
 	@Override
