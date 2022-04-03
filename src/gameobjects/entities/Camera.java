@@ -18,7 +18,7 @@ public class Camera extends Entity {
 
 	@Override
 	protected void addComponents() {
-		this.addComponent(new RestrictedPositionComponent(this, new Vector3f(0, 0.75f, 0.75f)).setXRestriction(-8f, 0));
+		this.addComponent(new RestrictedPositionComponent(this, new Vector3f(-2.5f, 0.75f, 0.75f)).setXRestriction(-6f, -1));
 		this.addComponent(new LookingComponent(this, new Vector3f(0, 0, 1)));
 		this.addComponent(new MovementComponent(this, provider));
 	}

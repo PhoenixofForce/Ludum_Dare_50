@@ -1,4 +1,4 @@
-30
+44
 bar_mask 0 0 16 4
 bar_anim_0 0 4 16 4
 bar_anim_1 0 8 16 4
@@ -29,3 +29,17 @@ living_2 32 80 16 16
 living_3 48 80 16 16
 floor_kitchen 64 96 16 16
 kitchen 64 80 16 16
+player_idle_0 32 256 48 48
+player_walk_0 32 304 48 48
+player_walk_1 80 304 48 48
+player_walk_2 128 304 48 48
+player_walk_3 176 304 48 48
+player_juggle_0 32 352 48 48
+player_juggle_1 80 352 48 48
+player_juggle_2 128 352 48 48
+player_juggle_3 176 352 48 48
+player_juggle_4 224 352 48 48
+player_juggle_5 272 352 48 48
+player_juggle_6 320 352 48 48
+player_juggle_7 368 352 48 48
+player_juggle_8 416 352 48 48

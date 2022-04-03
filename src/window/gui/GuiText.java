@@ -26,8 +26,10 @@ public class GuiText extends GuiElement {
 
 	private TextModel model;
 
-	private long writerDuration = 2000;
-	private long displayTime = -500;
+	private long writerDuration = 0;	//per char
+	private long displayTime = 0;
+
+	private long clearAfterMS;
 
 	private boolean fixedWidth;
 	private boolean fixedHeight;
@@ -89,6 +91,10 @@ public class GuiText extends GuiElement {
 	public void updateGui(long dt) {
 		super.updateGui(dt);
 		displayTime += dt;
+
+		if(clearAfterMS >= 0 && displayTime >= clearAfterMS + writerDuration) {
+			clear().addText("").build();
+		}
 	}
 
 	@Override
@@ -138,7 +144,12 @@ public class GuiText extends GuiElement {
 	}
 
 	public GuiText clear(long writerDuration) {
+		return clear(writerDuration, -1L);
+	}
+
+	public GuiText clear(long writerDuration, long clearAfterMS) {
 		this.writerDuration = writerDuration;
+		this.clearAfterMS = clearAfterMS;
 
 		text = new ArrayList<>();
 		colors = new ArrayList<>();
@@ -153,7 +164,8 @@ public class GuiText extends GuiElement {
 		}
 		model.updateInstance(font, fontSize, width, text, colors, wobbleStrengths);
 
-		if(model.charCount() > 0) displayTime = -writerDuration / model.charCount();
+		if(model.charCount() > 0) displayTime = -writerDuration;
+		writerDuration *= model.charCount();
 
 		if(!fixedWidth) this.setRawWidth(model.getWidth());
 		if(!fixedHeight) this.setRawHeight(model.getHeight());

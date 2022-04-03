@@ -1,56 +1,54 @@
 package gameobjects.input_provider;
 
-import utils.ControllableAction;
-
 public class PlayerInputProvider implements InputProvider {
 
 	@Override
 	public boolean moveLeft() {
-		return ControllableAction.MOVE_LEFT.anyPressed();
+		return false;
 	}
 
 	@Override
 	public boolean moveRight() {
-		return ControllableAction.MOVE_RIGHT.anyPressed();
+		return false;
 	}
 
 	@Override
 	public boolean moveUp() {
-		return ControllableAction.MOVE_UP.anyPressed();
+		return false;
 	}
 
 	@Override
 	public boolean moveDown() {
-		return ControllableAction.MOVE_DOWN.anyPressed();
+		return false;
 	}
 
 	@Override
 	public boolean moveForward() {
-		return ControllableAction.MOVE_FORWARD.anyPressed();
+		return false;
 	}
 
 	@Override
 	public boolean moveBackward() {
-		return ControllableAction.MOVE_BACKWARD.anyPressed();
+		return false;
 	}
 
 	@Override
 	public boolean turnLeft() {
-		return ControllableAction.TURN_LEFT.anyPressed();
+		return false;
 	}
 
 	@Override
 	public boolean turnRight() {
-		return ControllableAction.TURN_RIGHT.anyPressed();
+		return false;
 	}
 
 	@Override
 	public boolean turnUp() {
-		return ControllableAction.TURN_UP.anyPressed();
+		return false;
 	}
 
 	@Override
 	public boolean turnDown() {
-		return ControllableAction.TURN_DOWN.anyPressed();
+		return false;
 	}
 }

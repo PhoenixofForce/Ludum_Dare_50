@@ -17,11 +17,9 @@ import utils.Options;
 import utils.TimeUtils;
 import window.font.TextureAtlasFont;
 import window.gui.*;
-import window.gui.listener.MouseClickListener;
 import window.inputs.InputHandler;
 
 import java.nio.*;
-import java.util.Arrays;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -41,7 +39,8 @@ public class Window extends BasicColorGuiElement {
 	private final String title = "This is an engine!";
 
 	private Camera cam;
-	private GameMap map;
+	public GameMap map;
+	public GuiText dialogueTextBox;
 
 	public Window() {
 		super(null, 0, 0, 0, 0);
@@ -169,7 +168,7 @@ public class Window extends BasicColorGuiElement {
 
 	private void update(long dt) {
 		if(text != null) {
-			text.clear().addText("(" + cam.getPosition().x + " | " + cam.getPosition().y +  ")").build();
+			//text.clear().addText("(" + cam.getPosition().x + " | " + cam.getPosition().y +  ")").build();
 		}
 
 		updateGui(dt);
@@ -255,7 +254,8 @@ public class Window extends BasicColorGuiElement {
 			cam.getInputProvider().setMoveRight(event != GLFW_RELEASE);
 		});
 
-		text = new GuiText(this, Anchor.TOP_LEFT, 20, -20, new TextureAtlasFont("Font"), 16).addText("test").build();
+		text = new GuiText(this, Anchor.TOP_LEFT, 20, -20, new TextureAtlasFont("Font"), 16);
+		dialogueTextBox = new GuiText(this, Anchor.TOP_CENTER, 0.5f, -20, new TextureAtlasFont("Font"), 16);
 
 		GuiSleepBar sleepBar = new GuiSleepBar(this, Anchor.BOTTOM_CENTER, 0.5f, 20, 160, 40);
 	}

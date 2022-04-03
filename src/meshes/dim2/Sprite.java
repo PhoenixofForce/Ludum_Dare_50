@@ -2,6 +2,7 @@ package meshes.dim2;
 
 import maths.Easing;
 import meshes.loader.TextureHandler;
+import utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,6 +67,14 @@ public class Sprite {
 		int index = (int) Math.floor(indexPercentile * textures.size());
 
 		return textures.get(index);
+	}
+
+	public String getTexture(long startTime) {
+		return getTexture(startTime, TimeUtils.getTime());
+	}
+
+	public String getTexture() {
+		return getTexture(0);
 	}
 
 	@Override
