@@ -19,8 +19,9 @@ public class Player extends Entity {
 			sitting = new Sprite("player_tv"),
 			dancing = new Sprite(100, "player_dance", 10),
 			splishSplash = new Sprite(100, "player_wash", 2),
-			drink = new Sprite(100, "player_drink", 4)
-	;
+			drink = new Sprite(100, "player_drink_0", "player_drink_1", "player_drink_1", "player_drink_2", "player_drink_2", "player_drink_1", "player_drink_1", "player_drink_2", "player_drink_2", "player_drink_3", "player_drink_4"),
+			eat = new Sprite(100, "player_eat", 13)
+			;
 
 	private float x, y;
 	private SpriteRenderComponent src;

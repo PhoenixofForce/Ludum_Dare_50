@@ -4,7 +4,7 @@ import gameobjects.entities.Player;
 import meshes.dim2.Sprite;
 import window.Window;
 
-public class CoffeCutscene extends Cutscene {
+public class CoffeeCutscene extends Cutscene {
 
 @Override
 public void init() {
@@ -21,7 +21,7 @@ public void update(long dt) {
 			setStage(1);
 		} else if(timeRunning <= 4000) {
 			setStage(2);
-		} else if(timeRunning <= 4400) {
+		} else if(timeRunning <= 4000 + Player.drink.getTotalTime()) {
 			setStage(3);
 		} else {
 			setStage(0);
@@ -29,7 +29,7 @@ public void update(long dt) {
 
 		if(stageChanged) {
 			if(stage == 1) {
-				String text = "A delicous expresso";
+				String text = "A delicous espresso";
 
 				dialogueTextBox.clear(50, 1500).addText(text).build();
 			}
@@ -60,5 +60,4 @@ public void update(long dt) {
 
 		return Player.idle;
 	}
-
 }

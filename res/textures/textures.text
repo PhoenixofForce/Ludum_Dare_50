@@ -1,4 +1,4 @@
-79
+93
 bar_mask 448 256 64 16
 bar_anim_0 448 0 64 16
 bar_anim_1 448 16 64 16
@@ -78,3 +78,17 @@ player_drink_0 112 256 48 48
 player_drink_1 160 256 48 48
 player_drink_2 208 256 48 48
 player_drink_3 256 256 48 48
+player_drink_4 352 256 48 48
+player_eat_0 0 512 48 48
+player_eat_1 48 512 48 48
+player_eat_2 96 512 48 48
+player_eat_3 144 512 48 48
+player_eat_4 192 512 48 48
+player_eat_5 240 512 48 48
+player_eat_6 288 512 48 48
+player_eat_7 336 512 48 48
+player_eat_8 384 512 48 48
+player_eat_9 432 512 48 48
+player_eat_10 480 512 48 48
+player_eat_11 528 512 48 48
+player_eat_12 576 512 48 48
