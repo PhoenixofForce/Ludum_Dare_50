@@ -6,15 +6,23 @@ import maths.Easing;
 import meshes.dim2.Sprite;
 import window.Window;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JuggleCutscene extends Cutscene {
 
-
-	public JuggleCutscene() {
-	}
+	private List<String> texts;
 
 	@Override
 	public void init() {
-
+		texts = new ArrayList<>(List.of(
+				"Juggling? Again?",
+				"I am going to be the champion soon",
+				"Lets throw some balls",
+				"I hope they dont fall on my head this time",
+				"I could get some more balls",
+				"Balls."
+		));
 	}
 
 	@Override
@@ -44,9 +52,14 @@ public class JuggleCutscene extends Cutscene {
 			if(stage == 1) {
 				String text = "";
 
-				if(timesDone <= 2) text = "Oh boi, i havent juggled in a long time!";
-				else if(timesDone <= 7) text = "I guess some more training cant hurt";
-				else text = "Juggling? Again?";
+				if(timesDone == 1) text = "Oh boi, i havent juggled in a long time!";
+				else if(timesDone == 4) text = "I guess some more training cant hurt";
+				else {
+					double random = Math.random();
+					for(int i = 0; i < texts.size(); i++) {
+						if(random < (i+1) / (float) texts.size() && text.length() == 0) text = texts.get(i);
+					}
+				}
 
 				dialogueTextBox.clear(50, 1500).addText(text).build();
 			} else if(stage == 2) {

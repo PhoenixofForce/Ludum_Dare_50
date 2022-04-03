@@ -51,7 +51,7 @@ public class Player extends Entity {
 		src = new SpriteRenderComponent(this, ObjHandler.getModel("plane"), new Sprite("player_idle_0"));
 		controller = new PlayerControlComponent(this);
 
-		this.addComponent(new PositionComponent(this, new Vector3f(-3, y, x), new Vector3f(0,(float) Math.toRadians(90), 0), new Vector3f(1, 0.25f * 3, 0.25f * 3)));
+		this.addComponent(new PositionComponent(this, new Vector3f(-3, y, x), new Vector3f(0,(float) Math.toRadians(90), 0), new Vector3f(1, 0.3f * 3, 0.3f * 3)));
 		this.addComponent(src);
 		this.addComponent(controller);
 	}

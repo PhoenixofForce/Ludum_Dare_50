@@ -38,7 +38,7 @@ public class FailCutscene extends Cutscene {
 			}
 
 			if(stage == 3) {
-				dialogueTextBox.clear(50).addText("Thank you for playing. Feel free to try again").build();
+				dialogueTextBox.clear(50).addText("Thank you for playing. Feel free to try again\r\n You have made it til " + Window.INSTANCE.map.clock.timeString()).build();
 			}
 		}
 

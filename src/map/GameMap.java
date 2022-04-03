@@ -27,6 +27,8 @@ public class GameMap implements GameLoopObject {
 	public Basic2DEntity fridge;
 	public Basic2DEntity coffee;
 	public Basic2DEntity sink;
+	public Basic2DEntity bed;
+	public Basic2DEntity tv;
 
 	public Clock clock;
 
@@ -78,11 +80,14 @@ public class GameMap implements GameLoopObject {
 		bookcase = new Basic2DEntity(-3.3f, 1f, 1, 3, "books", new BookCutscene());
 		entities.add(bookcase);
 
+		bed = new Basic2DEntity(-4.25f, 0.65f, 2, 2, "bed", new BedCutscene());
+		entities.add(bed);
+
 		discs = new Basic2DEntity(-5.5f, 0.5f, "discs", new MusicCutscene());
 		entities.add(discs);
 
-
-		entities.add(new Basic2DEntity(-6.25f, 0.75f, 2, 2, "tv", new TvCutscene()));
+		tv = new Basic2DEntity(-6.25f, 0.75f, 2, 2, "tv", new TvCutscene());
+		entities.add(tv);
 
 		this.juggleBalls = new Basic2DEntity(-7f, 0.4f, "juggle", new JuggleCutscene());
 		entities.add(juggleBalls);

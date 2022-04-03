@@ -4,11 +4,21 @@ import gameobjects.entities.Player;
 import meshes.dim2.Sprite;
 import window.Window;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SinkCutscene extends Cutscene {
+
+	private List<String> texts;
 
 	@Override
 	public void init() {
-
+		texts = new ArrayList<>(List.of(
+				"I am going to splash some water in my face",
+				"I need some cold water",
+				"Maybe this can wake me up",
+				"This is going to be refreshing"
+		));
 	}
 
 	@Override
@@ -27,7 +37,12 @@ public class SinkCutscene extends Cutscene {
 
 		if(stageChanged) {
 			if(stage == 1) {
-				String text = "I am going to splash some water in my face";
+				String text = "";
+
+				double random = Math.random();
+				for(int i = 0; i < texts.size(); i++) {
+					if(random < (i+1) / (float) texts.size() && text.length() == 0) text = texts.get(i);
+				}
 
 				dialogueTextBox.clear(50, 1500).addText(text).build();
 			}

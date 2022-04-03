@@ -29,7 +29,8 @@ public class PCCutscene extends Cutscene {
 				"This streamer just wants money"
 		);
 
-		randomQuotes_2 = List.of("I havent add text boxes yet",
+		randomQuotes_2 = List.of(
+				"I havent add text boxes yet",
 				"This bug is annoying",
 				"What were the final themes again?",
 				"I could copy this from an older project",
@@ -52,10 +53,10 @@ public class PCCutscene extends Cutscene {
 
 		if(!activated) return;
 		Window.INSTANCE.map.player.addTiredness(dt / 240000.0f);
-		randomCooldown -= dt;
 
 		int[] time = Window.INSTANCE.map.clock.toTime();
 
+		randomCooldown -= dt;
 		if(randomCooldown < 0) {
 			String text = "";
 

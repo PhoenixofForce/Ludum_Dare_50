@@ -1,4 +1,4 @@
-105
+121
 bar_mask 448 256 64 16
 bar_anim_0 448 0 64 16
 bar_anim_1 448 16 64 16
@@ -104,3 +104,19 @@ player_sleep_4 288 560 48 48
 player_sleep_5 336 560 48 48
 player_sleep_6 384 560 48 48
 player_sleep_7 96 560 48 48
+bed 192 80 32 32
+bed_used 224 80 32 32
+tv_anim_0 0 128 32 32
+tv_anim_1 32 128 32 32
+tv_anim_2 64 128 32 32
+tv_anim_3 96 128 32 32
+tv_anim_4 128 128 32 32
+tv_anim_5 160 128 32 32
+tv_anim_6 192 128 32 32
+tv_anim_7 0 160 32 32
+tv_anim_8 32 160 32 32
+tv_anim_9 64 160 32 32
+tv_anim_10 96 160 32 32
+tv_anim_11 128 160 32 32
+tv_anim_12 160 160 32 32
+tv_anim_13 192 160 32 32

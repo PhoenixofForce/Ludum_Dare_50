@@ -5,14 +5,35 @@ import maths.MathUtils;
 import meshes.dim2.Sprite;
 import window.Window;
 
+import java.util.List;
+
 public class MusicCutscene extends Cutscene {
 	private float originX;
 
 	private long randomCooldown = 5000;
+	private List<String> texts;
+	private List<String> startTexts;
 
 	@Override
 	public void init() {
 		originX = getGoal();
+		texts = List.of(
+				"This song is a banger",
+				"I saw this band live",
+				"Nobody should see me dance like this",
+				"I had an excellent dancing teacher",
+				"This is getting exhausting",
+				"This lyrics are deep",
+				"Ive got rythm in my blood"
+		);
+
+		startTexts = List.of(
+				"Lets get noodlin",
+				"Lets dance",
+				"I hope i dont trip",
+				"Havent danced in while",
+				"Maybe some loud music can help"
+		);
 	}
 
 	@Override
@@ -24,17 +45,14 @@ public class MusicCutscene extends Cutscene {
 		randomCooldown -= dt;
 
 		if(randomCooldown < 0) {
-			String text;
+			String text = "";
 
 			double random = Math.random();
-			if(random < 1 / 6.0) text = "This song is a banger";
-			else if(random < 2 / 6.0) text = "This lyrics are deep";
-			else if(random < 3 / 6.0) text = "I saw this band live";
-			else if(random < 4 / 6.0) text = "Nobody should see me dance like this";
-			else if(random < 5 / 6.0) text = "I had an excellent dancing teacher";
-			else text = "This is getting exhausting";
+			for(int i = 0; i < texts.size(); i++) {
+				if(random < (i+1) / (float) texts.size() && text.length() == 0) text = texts.get(i);
+			}
 
-			dialogueTextBox.clear(50, 1000).addText(text).build();
+			dialogueTextBox.clear(50, 1500).addText(text).build();
 			randomCooldown = (long) MathUtils.random(3000, 10000);
 		}
 
@@ -53,7 +71,14 @@ public class MusicCutscene extends Cutscene {
 
 		if(stageChanged) {
 			if(stage == 1) {
-				dialogueTextBox.clear(50, 1000).addText("Lets dance!").build();
+				String text = "";
+
+				double random = Math.random();
+				for(int i = 0; i < startTexts.size(); i++) {
+					if(random < (i+1) / (float) startTexts.size() && text.length() == 0) text = startTexts.get(i);
+				}
+
+				dialogueTextBox.clear(50, 1500).addText(text).build();
 			}
 
 			if(stage == 2) {

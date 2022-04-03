@@ -17,9 +17,26 @@ public class BookCutscene extends Cutscene {
 
 	private int currentBookLength = 20000;
 
+	private long randomCooldown = 7500;
+	private List<String> randomQuotes_1;
+
 	@Override
 	public void init() {
 		originX = getGoal();
+
+		randomQuotes_1 = List.of(
+				"I havent seen that coming",
+				"I dont like this character",
+				"Ohhhhhh",
+				"Another chapter done",
+				"Ouch i cut my finger",
+				"Why is this page torn?",
+				"I dont remember reading this",
+				"Narrr, i lost focus and have to reread the entire page",
+				"A CAAAAAAAT",
+				"A movie of this would never be as good",
+				"Just one more page"
+		);
 
 		bookQuotes = new ArrayList<>(List.of(
 				"Here i rather would watch the movie",
@@ -44,6 +61,22 @@ public class BookCutscene extends Cutscene {
 		float tired = (float) (getTirednessFactor() * (dt / 6500.0) / (timesDone));
 		if(tired > 0) tired /= 10;
 		Window.INSTANCE.map.player.addTiredness(-tired);
+
+
+		randomCooldown -= dt;
+		if(randomCooldown < 0) {
+			String text = "";
+
+			List<String> quotes = randomQuotes_1;
+
+			double random = Math.random();
+			for(int i = 0; i < quotes.size(); i++) {
+				if(random < (i+1) / (float) quotes.size() && text.length() == 0) text = quotes.get(i);
+			}
+
+			dialogueTextBox.clear(50, 1000).addText(text).build();
+			randomCooldown = (long) MathUtils.random(3000, 10000);
+		}
 
 		if(timeRunning <= 3500) {
 			setStage(1);
@@ -73,7 +106,8 @@ public class BookCutscene extends Cutscene {
 				setX(getGoal() - 1f);
 
 				String bookTitle = "Havent read that one";
-				if(bookQuotes.size() > 0) bookTitle = bookQuotes.remove(0);
+				bookTitle = bookQuotes.remove(0);
+				bookQuotes.add(bookTitle);
 
 				dialogueTextBox.clear(50, 1000).addText(bookTitle).build();
 				currentBookLength = (int) MathUtils.random(15000, 30000);
