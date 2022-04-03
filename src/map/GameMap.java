@@ -23,6 +23,7 @@ public class GameMap implements GameLoopObject {
 	public Basic2DEntity chair;
 	public Basic2DEntity bookcase;
 	public Basic2DEntity discs;
+	public Basic2DEntity pc;
 
 	public Clock clock;
 
@@ -56,7 +57,8 @@ public class GameMap implements GameLoopObject {
 
 		entities.add(new Basic2DEntity(-1.5f, 1f, "clock", new ClockCutscene()));
 
-		entities.add(new Basic2DEntity(-2.5f, 0.75f, 2, 2, "pc", true));
+		pc = new Basic2DEntity(-2.5f, 0.75f, 2, 2, "pc", new PCCutscene());
+		entities.add(pc);
 
 		chair = new Basic2DEntity(-2.5f, 0.75f, 1, 2, "chair_used", false);
 		entities.add(chair);

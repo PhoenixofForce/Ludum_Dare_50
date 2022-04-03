@@ -5,10 +5,6 @@ import maths.MathUtils;
 import meshes.dim2.Sprite;
 import window.Window;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 public class MusicCutscene extends Cutscene {
 	private float originX;
 
@@ -26,7 +22,6 @@ public class MusicCutscene extends Cutscene {
 		if(!activated) return;
 		randomCooldown -= dt;
 
-		System.out.println(randomCooldown);
 		if(randomCooldown < 0) {
 			String text;
 

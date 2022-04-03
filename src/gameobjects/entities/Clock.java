@@ -26,7 +26,7 @@ public class Clock extends Entity {
 
 	public String timeString() {
 		int[] timeParts = toTime();
-		return timeParts[0] + ":" + timeParts[1];
+		return (timeParts[0] % 24) + ":" + timeParts[1];
 	}
 
 }
