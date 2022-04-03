@@ -81,7 +81,7 @@ public class GuiButton extends GuiElement {
 		uniform.setTextures(atlas.getTexture());
 		uniform.setVector3fs(new Vector3f(1));
 		uniform.setVector4fs(bounds);
-		uniform.setFloats(1, 0);
+		uniform.setFloats(0, 1, 0);
 		Renderer.renderArrays(ShaderHandler.ShaderType.DEFAULT, ScreenRect.getInstance(), uniform);
 	}
 

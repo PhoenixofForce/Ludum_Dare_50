@@ -57,7 +57,7 @@ public class GuiSleepBar extends GuiElement {
 		Uniform uniform = new Uniform();
 		uniform.setMatrices(new Matrix4f(), new Matrix4f(), transformationMatrix);
 		uniform.setTextures(atlas.getTexture());
-		uniform.setFloats(1, sleepValue);
+		uniform.setFloats(0, 1, sleepValue);
 		uniform.setVector4fs(atlas.getTextureBounds(animation.getTexture(startTime, TimeUtils.getTime())), atlas.getTextureBounds("bar_mask"));
 
 		Renderer.renderArrays(ShaderHandler.ShaderType.SLEEPBAR, ScreenRect.getInstance(), uniform);

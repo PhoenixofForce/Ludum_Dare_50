@@ -26,6 +26,8 @@ public class SpriteRenderComponent extends RenderingComponent {
 	private boolean hovered;
 	private Sprite sprite;
 
+	private boolean flipped;
+
 	private long start;
 
 	public SpriteRenderComponent(Entity e, Renderable model, Sprite sprite) {
@@ -45,7 +47,7 @@ public class SpriteRenderComponent extends RenderingComponent {
 		uniform.setVector3fs(new Vector3f(1, 0, 1));
 		uniform.setTextures(atlas.getTexture());
 		uniform.setVector4fs(atlas.getTextureBounds(sprite.getTexture(start)));
-		uniform.setFloats(0, hovered? 1: 0);
+		uniform.setFloats(flipped? 1: 0, 0, hovered? 1: 0);
 
 		Renderer.render(ShaderHandler.ShaderType.DEFAULT, model, uniform);
 	}
@@ -59,5 +61,9 @@ public class SpriteRenderComponent extends RenderingComponent {
 
 	public void setHovered(boolean b) {
 		this.hovered = b;
+	}
+
+	public void flip(boolean flipped) {
+		this.flipped = flipped;
 	}
 }

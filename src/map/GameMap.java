@@ -4,9 +4,7 @@ import gameobjects.Entity;
 import gameobjects.entities.Basic2DEntity;
 import gameobjects.entities.Clock;
 import gameobjects.entities.Player;
-import map.cutscenes.BookCutscene;
-import map.cutscenes.Cutscene;
-import map.cutscenes.JuggleCutscene;
+import map.cutscenes.*;
 import maths.MathUtils;
 import org.joml.Matrix4f;
 import utils.GameLoopObject;
@@ -24,6 +22,7 @@ public class GameMap implements GameLoopObject {
 	public Basic2DEntity juggleBalls;
 	public Basic2DEntity chair;
 	public Basic2DEntity bookcase;
+	public Basic2DEntity discs;
 
 	public Clock clock;
 
@@ -54,7 +53,9 @@ public class GameMap implements GameLoopObject {
 		}
 
 		entities.add(new Basic2DEntity(-1.5f, 0.5f, "fridge", true));
-		entities.add(new Basic2DEntity(-1.5f, 1f, "clock", true));
+
+		entities.add(new Basic2DEntity(-1.5f, 1f, "clock", new ClockCutscene()));
+
 		entities.add(new Basic2DEntity(-2.5f, 0.75f, 2, 2, "pc", true));
 
 		chair = new Basic2DEntity(-2.5f, 0.75f, 1, 2, "chair_used", false);
@@ -63,8 +64,11 @@ public class GameMap implements GameLoopObject {
 		bookcase = new Basic2DEntity(-3.3f, 1f, 1, 3, "books", new BookCutscene());
 		entities.add(bookcase);
 
-		entities.add(new Basic2DEntity(-5.5f, 0.5f, "discs", true));
-		entities.add(new Basic2DEntity(-6.25f, 0.75f, 2, 2, "tv", true));
+		discs = new Basic2DEntity(-5.5f, 0.5f, "discs", new MusicCutscene());
+		entities.add(discs);
+
+
+		entities.add(new Basic2DEntity(-6.25f, 0.75f, 2, 2, "tv", new TvCutscene()));
 
 		this.juggleBalls = new Basic2DEntity(-7f, 0.4f, "juggle", new JuggleCutscene());
 		entities.add(juggleBalls);

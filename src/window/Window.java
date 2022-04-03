@@ -255,7 +255,7 @@ public class Window extends BasicColorGuiElement {
 		});
 
 		text = new GuiText(this, Anchor.TOP_LEFT, 20, -20, new TextureAtlasFont("Font"), 16);
-		dialogueTextBox = new GuiText(this, Anchor.TOP_CENTER, 0.5f, -20, new TextureAtlasFont("Font"), 16);
+		dialogueTextBox = new GuiText(this, Anchor.TOP_CENTER, 0.5f, -20,  new TextureAtlasFont("Font"), 16, 0);
 
 		GuiSleepBar sleepBar = new GuiSleepBar(this, Anchor.BOTTOM_CENTER, 0.5f, 20, 128, 32);
 	}

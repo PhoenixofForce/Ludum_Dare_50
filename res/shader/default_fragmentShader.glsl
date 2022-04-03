@@ -1,7 +1,7 @@
 #version 430
 
 layout(location = 10) uniform sampler2D atlas;
-layout(location = 21) uniform float hasBorder;
+layout(location = 22) uniform float hasBorder;
 layout(location = 40) uniform vec3 color;
 
 //import util_conditional

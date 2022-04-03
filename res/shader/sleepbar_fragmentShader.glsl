@@ -1,7 +1,7 @@
 #version 430
 
 layout(location = 10) uniform sampler2D atlas;
-layout(location = 21) uniform float sleepValue;
+layout(location = 22) uniform float sleepValue;
 layout(location = 61) uniform vec4 maskLocation;
 
 //import util_conditional

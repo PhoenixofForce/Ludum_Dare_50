@@ -1,4 +1,4 @@
-59
+69
 bar_mask 448 256 64 16
 bar_anim_0 448 0 64 16
 bar_anim_1 448 16 64 16
@@ -58,3 +58,13 @@ player_juggle_7 368 352 48 48
 player_juggle_8 416 352 48 48
 player_tv 32 400 48 48
 player_book 112 400 48 48
+player_dance_0 32 448 48 48
+player_dance_1 80 448 48 48
+player_dance_2 128 448 48 48
+player_dance_3 176 448 48 48
+player_dance_4 224 448 48 48
+player_dance_5 272 448 48 48
+player_dance_6 320 448 48 48
+player_dance_7 368 448 48 48
+player_dance_8 416 448 48 48
+player_dance_9 464 448 48 48

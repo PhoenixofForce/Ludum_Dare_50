@@ -15,7 +15,9 @@ public class Player extends Entity {
 	public static final Sprite walk = new Sprite(100, "player_walk", 3),
 			idle = new Sprite("player_idle_0"),
 			juggling = new Sprite(100, "player_juggle", 9),
-			reading = new Sprite("player_book");
+			reading = new Sprite("player_book"),
+			sitting = new Sprite("player_tv"),
+			dancing = new Sprite(100, "player_dance", 10)
 	;
 
 	private float x, y;
@@ -60,5 +62,10 @@ public class Player extends Entity {
 
 	public void unhide() {
 		this.hidden = false;
+	}
+
+
+	public void flip(boolean flipped) {
+		src.flip(flipped);
 	}
 }

@@ -12,8 +12,6 @@ public class PlayerControlComponent extends Component {
 
 	private static final float maxXDistance = 0.3f;
 
-
-
 	private Player p;
 	private PositionComponent position;
 	private Cutscene currentScene;
@@ -53,6 +51,8 @@ public class PlayerControlComponent extends Component {
 
 		if(Math.abs(currentScene.getGoal() - position.getPosition().z) >= maxXDistance) {
 			float dir = Math.signum(currentScene.getGoal() - position.getPosition().z);
+			p.flip(dir > 0);
+
 			position.add(new Vector3f(0, 0, dir * dts));
 
 			p.setSprite(Player.walk);
