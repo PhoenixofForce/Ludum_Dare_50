@@ -168,7 +168,7 @@ public class Window extends BasicColorGuiElement {
 
 	private void update(long dt) {
 		if(text != null) {
-			//text.clear().addText("(" + cam.getPosition().x + " | " + cam.getPosition().y +  ")").build();
+			text.clear().addText(map.player.getTiredness() + "").build();
 		}
 
 		updateGui(dt);
@@ -233,6 +233,9 @@ public class Window extends BasicColorGuiElement {
 	}
 
 	private GuiText text;
+	public GuiSleepBar sleepBar;
+	public GuiButton button_left, button_right;
+
 	public void loadGui() {
 		this.addClickListener((event, button) -> {
 			if(event == GLFW_PRESS) {
@@ -243,8 +246,8 @@ public class Window extends BasicColorGuiElement {
 		});
 
 
-		GuiButton button_left = new GuiButton(this, Anchor.BOTTOM_LEFT, 20, 20, 100, 100, "arrow_left");
-		GuiButton button_right = new GuiButton(this, Anchor.BOTTOM_RIGHT, -20, 20, 100, 100, "arrow_right");
+		button_left = new GuiButton(this, Anchor.BOTTOM_LEFT, 20, 20, 100, 100, "arrow_left");
+		button_right = new GuiButton(this, Anchor.BOTTOM_RIGHT, -20, 20, 100, 100, "arrow_right");
 
 		button_left.addClickListener((event, button) -> {
 			cam.getInputProvider().setMoveLeft(event != GLFW_RELEASE);
@@ -257,7 +260,7 @@ public class Window extends BasicColorGuiElement {
 		text = new GuiText(this, Anchor.TOP_LEFT, 20, -20, new TextureAtlasFont("Font"), 16);
 		dialogueTextBox = new GuiText(this, Anchor.TOP_CENTER, 0.5f, -20,  new TextureAtlasFont("Font"), 16, 0);
 
-		GuiSleepBar sleepBar = new GuiSleepBar(this, Anchor.BOTTOM_CENTER, 0.5f, 20, 128, 32);
+		sleepBar = new GuiSleepBar(this, Anchor.BOTTOM_CENTER, 0.5f, 20, 128, 32);
 	}
 
 	public float[] translateToMapSpace(float x, float y) {

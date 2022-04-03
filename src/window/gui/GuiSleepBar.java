@@ -14,8 +14,6 @@ import window.Window;
 
 public class GuiSleepBar extends GuiElement {
 
-	private float sleepValue = 0;
-
 	private Sprite animation = new Sprite(200, "bar_anim", 16);
 	private long startTime = TimeUtils.getTime();
 
@@ -37,7 +35,7 @@ public class GuiSleepBar extends GuiElement {
 
 	@Override
 	public void updateComponent(long dt) {
-		setValue(Math.min((Constants.RUNTIME % 300) / 200.0f, 1));
+
 	}
 
 	@Override
@@ -57,13 +55,9 @@ public class GuiSleepBar extends GuiElement {
 		Uniform uniform = new Uniform();
 		uniform.setMatrices(new Matrix4f(), new Matrix4f(), transformationMatrix);
 		uniform.setTextures(atlas.getTexture());
-		uniform.setFloats(0, 1, sleepValue);
+		uniform.setFloats(0, 1, Window.INSTANCE.map.player.getTiredness());
 		uniform.setVector4fs(atlas.getTextureBounds(animation.getTexture(startTime, TimeUtils.getTime())), atlas.getTextureBounds("bar_mask"));
 
 		Renderer.renderArrays(ShaderHandler.ShaderType.SLEEPBAR, ScreenRect.getInstance(), uniform);
-	}
-
-	public void setValue(float value) {
-		this.sleepValue = value;
 	}
 }

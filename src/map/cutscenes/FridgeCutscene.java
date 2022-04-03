@@ -30,7 +30,6 @@ public class FridgeCutscene extends Cutscene {
 		if(stageChanged) {
 			if(stage == 1) {
 				String text = "I wonder if the light stays on when the door closes";
-
 				dialogueTextBox.clear(50, 1500).addText(text).build();
 			}
 
@@ -44,6 +43,16 @@ public class FridgeCutscene extends Cutscene {
 		}
 
 		stageChanged = false;
+	}
+
+	@Override
+	public void activate() {
+		if(!activated) {
+			float percantage = 0.12f / (timesDone);
+			Player p = Window.INSTANCE.map.player;
+			p.addTiredness(-percantage * p.getTiredness());
+		}
+		super.activate();
 	}
 
 	@Override

@@ -20,6 +20,7 @@ public class MusicCutscene extends Cutscene {
 		super.update(dt);
 
 		if(!activated) return;
+
 		randomCooldown -= dt;
 
 		if(randomCooldown < 0) {
@@ -41,12 +42,13 @@ public class MusicCutscene extends Cutscene {
 			setStage(1);
 		}
 
-		else if(timeRunning < 7500) {
+		else if(timeRunning < 3600) {
 			setStage(2);
 		}
 
-		else if(timeRunning < 15000) {
-			setStage(3);
+		else {
+			float tired = (float) ((float) (dt/ 30000.0 ) / timesDone - timeRunning / 35000000.0);
+			Window.INSTANCE.map.player.addTiredness(-tired);
 		}
 
 		if(stageChanged) {

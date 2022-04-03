@@ -44,6 +44,8 @@ public abstract class GuiElement {
 
 	private MouseClickListener mouseClickListener;
 
+	private boolean isHidden;
+
 	public GuiElement(GuiElement parent, Anchor xAnchor, Anchor yAnchor, float xOffset, float yOffset, float width, float height) {
 		this.parent = parent;
 		this.xAnchor = xAnchor;
@@ -71,6 +73,8 @@ public abstract class GuiElement {
 	}
 
 	public void renderGui() {
+		if(isHidden) return;
+
 		if(parent != null) {
 			renderComponent();
 		}
@@ -243,5 +247,13 @@ public abstract class GuiElement {
 
 	public void addClickListener(MouseClickListener listener) {
 		this.mouseClickListener = listener;
+	}
+
+	public void hide() {
+		this.isHidden = true;
+	}
+
+	public void unhide() {
+		isHidden = false;
 	}
 }

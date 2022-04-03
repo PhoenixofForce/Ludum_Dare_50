@@ -51,6 +51,7 @@ public class PCCutscene extends Cutscene {
 		super.update(dt);
 
 		if(!activated) return;
+		Window.INSTANCE.map.player.addTiredness(dt / 240000.0f);
 		randomCooldown -= dt;
 
 		int[] time = Window.INSTANCE.map.clock.toTime();
@@ -67,6 +68,9 @@ public class PCCutscene extends Cutscene {
 
 			dialogueTextBox.clear(50, 1000).addText(text).build();
 			randomCooldown = (long) MathUtils.random(3000, 10000);
+
+			float tiredness = MathUtils.map(randomCooldown, 3000, 10000, 0, 1);
+			Window.INSTANCE.map.player.addTiredness(-tiredness / 11.5 / timesDone);
 		}
 
 		if(timeRunning <= 1500) {

@@ -20,6 +20,7 @@ public class ClockCutscene extends Cutscene {
 		super.update(dt);
 
 		if(!activated) return;
+		Window.INSTANCE.map.player.addTiredness(- dt / 120000.0f / (timesDone));
 
 		if(timeRunning <= 3000) {
 			setStage(1);
@@ -35,9 +36,13 @@ public class ClockCutscene extends Cutscene {
 			if(stage == 1) {
 				String text = "";
 
-				if(time[0] < 22) {
-					if(Math.random()< 0.5) text = timeStr + "? It feels like hours already";
-					else text = "Maybe time runs faster when i throw it out of the window";
+				if(timesDone == 1) {
+					text = "Weird, its feels like the time just froze";
+				} else if(time[0] < 22) {
+					double random = Math.random();
+					if(random< 0.33) text = timeStr + "? It feels like hours already";
+					else if(random < 0.9) text = "Maybe time runs faster when i throw it out of the window";
+					else text = "Weird, its feels like the time runs slower";
 				} else if(time[0] >= 26) {
 					text = "Oh its already " + timeStr + " just a little more";
 				} else {

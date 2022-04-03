@@ -5,6 +5,8 @@ import gameobjects.component_system.components.PlayerControlComponent;
 import gameobjects.component_system.components.PositionComponent;
 import gameobjects.component_system.components.rendering.SpriteRenderComponent;
 import map.cutscenes.Cutscene;
+import maths.Easing;
+import maths.MathUtils;
 import meshes.dim2.Sprite;
 import meshes.loader.ObjHandler;
 import org.joml.Matrix4f;
@@ -28,6 +30,12 @@ public class Player extends Entity {
 	private PlayerControlComponent controller;
 	private boolean hidden = true;
 
+	private float tiredness = 0.0f;
+
+	private int coffCount = 0;
+	private long coffStart;
+	private long coffDuration = 30000;
+
 	public Player(float x, float y) {
 		this.x = x;
 		this.y = y;
@@ -42,6 +50,15 @@ public class Player extends Entity {
 		this.addComponent(new PositionComponent(this, new Vector3f(-3, y, x), new Vector3f(0,(float) Math.toRadians(90), 0), new Vector3f(1, 0.25f * 3, 0.25f * 3)));
 		this.addComponent(src);
 		this.addComponent(controller);
+	}
+
+	@Override
+	public void update(long dt) {
+		super.update(dt);
+		coffStart -= dt;
+		if(coffStart < - coffDuration) coffCount = 0;
+
+		addTiredness(dt / 120000.0f);
 	}
 
 	@Override
@@ -67,8 +84,30 @@ public class Player extends Entity {
 		this.hidden = false;
 	}
 
-
 	public void flip(boolean flipped) {
 		src.flip(flipped);
+	}
+
+	public void addTiredness(double v) {
+		if(coffCount > 0) {
+			float factor = (float) (MathUtils.map(coffStart, -coffDuration, coffDuration, 1, 2) * Math.log(coffCount + 1));
+			System.out.println(v + " " + factor);
+			if(coffDuration < 0 && v > 0) v *= factor / 2f;	//if the negatative effect is happening, increase the negative effects
+			if(coffDuration > 0 && v < 0) v*= factor;
+			System.out.println(v);
+		}
+		this.tiredness = (float) Math.max(0, tiredness + v);
+	}
+
+	public float getTiredness() {
+		return (float) Easing.easeOut(Math.min(1, tiredness));
+	}
+
+	public void addCoffine() {
+		if(coffCount == 0) {
+			coffStart = coffDuration;
+		}
+
+		coffCount++;
 	}
 }

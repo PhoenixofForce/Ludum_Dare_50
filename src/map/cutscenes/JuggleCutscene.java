@@ -2,6 +2,7 @@ package map.cutscenes;
 
 import gameobjects.entities.Basic2DEntity;
 import gameobjects.entities.Player;
+import maths.Easing;
 import meshes.dim2.Sprite;
 import window.Window;
 
@@ -21,6 +22,10 @@ public class JuggleCutscene extends Cutscene {
 		super.update(dt);
 
 		if(!activated) return;
+		float tired = (float) (getTirednessFactor() * (dt / 6500.0) / (Math.abs(timesDone - 4) + 1));
+		if(timesDone > 4) tired /= 15;
+		else if(tired > 0) tired *= 1.5f;
+		Window.INSTANCE.map.player.addTiredness(-tired);
 
 		int juggleTime = timesDone * 500;
 		if(timeRunning <= 3000) {
@@ -70,6 +75,12 @@ public class JuggleCutscene extends Cutscene {
 
 
 		return Player.idle;
+	}
+
+	public float getTirednessFactor() {
+		if(timeRunning < 3500 || timeRunning >=  3500 + timesDone * 500L) return 0;
+		float bookProgress = (timeRunning - 3500.0f) / (timesDone * 500);
+		return (float)  (1.0f - Easing.ease(0.5f, -1.85f, bookProgress));
 	}
 
 }

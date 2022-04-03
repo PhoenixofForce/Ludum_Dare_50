@@ -1,6 +1,7 @@
 package map.cutscenes;
 
 import gameobjects.entities.Player;
+import maths.Easing;
 import maths.MathUtils;
 import meshes.dim2.Sprite;
 import window.Window;
@@ -40,6 +41,9 @@ public class BookCutscene extends Cutscene {
 		super.update(dt);
 
 		if(!activated) return;
+		float tired = (float) (getTirednessFactor() * (dt / 6500.0) / (timesDone));
+		if(tired > 0) tired /= 10;
+		Window.INSTANCE.map.player.addTiredness(-tired);
 
 		if(timeRunning <= 3500) {
 			setStage(1);
@@ -93,6 +97,12 @@ public class BookCutscene extends Cutscene {
 		setX(originX);
 		Window.INSTANCE.map.bookcase.setSprite(new Sprite("books"));
 		currentBookLength = 20000;
+	}
+
+	public float getTirednessFactor() {
+		if(timeRunning < 5500 || timeRunning >= 5500 + currentBookLength + 1000) return 0;
+		float bookProgress = (timeRunning - 5500.0f) / currentBookLength;
+		return (float) Easing.ease(-1.7f, -1.4f, bookProgress);
 	}
 
 

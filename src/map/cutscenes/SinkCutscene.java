@@ -47,6 +47,14 @@ public class SinkCutscene extends Cutscene {
 	}
 
 	@Override
+	public void activate() {
+		if(!activated) {
+			Window.INSTANCE.map.player.addTiredness(-0.15f / (timesDone * 0.5 + 0.5));
+		}
+		super.activate();
+	}
+
+	@Override
 	public Sprite getCurrentSprite() {
 		if(stage >= 2) {
 			return Player.splishSplash;

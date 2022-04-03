@@ -26,6 +26,7 @@ public class OpeningCutscene extends Cutscene {
 		super.update(dt);
 
 		if(!activated) return;
+		Window.INSTANCE.map.player.addTiredness(-Window.INSTANCE.map.player.getTiredness());
 
 		if(timeRunning <= 3500) {
 			chair.setSprite(new Sprite("chair_used"));

@@ -6,13 +6,13 @@ import window.Window;
 
 public class CoffeeCutscene extends Cutscene {
 
-@Override
-public void init() {
+	@Override
+	public void init() {
 
 		}
 
-@Override
-public void update(long dt) {
+	@Override
+	public void update(long dt) {
 		super.update(dt);
 
 		if(!activated) return;
@@ -44,7 +44,13 @@ public void update(long dt) {
 		}
 
 		stageChanged = false;
-		}
+	}
+
+	@Override
+	public void activate() {
+		if(!activated) Window.INSTANCE.map.player.addCoffine();
+		super.activate();
+	}
 
 	@Override
 	public void deactivate() {

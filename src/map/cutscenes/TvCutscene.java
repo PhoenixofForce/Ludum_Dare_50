@@ -2,6 +2,7 @@ package map.cutscenes;
 
 import gameobjects.entities.Player;
 import meshes.dim2.Sprite;
+import window.Window;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,6 +34,9 @@ public class TvCutscene extends Cutscene {
 		super.update(dt);
 
 		if(!activated) return;
+		float tvInterest = (float) Math.sin(timeRunning / 1000.0f) * 0.5f + 0.2f;
+		float tired = (float) ((tvInterest * (dt + Math.random() / 1000.0)) / 10000.0 / timesDone);
+		Window.INSTANCE.map.player.addTiredness(-tired / 2);
 
 		if(timeRunning <= 3500) {
 			setStage(1);
@@ -46,13 +50,8 @@ public class TvCutscene extends Cutscene {
 			setStage(3);
 		}
 
-		else if(timeRunning < 5500 + 20000 + 1000) {
-			setStage(4);
-		} else {
-			setStage(0);
-		}
-
 		if(stageChanged) {
+
 			if(stage == 1) {
 				dialogueTextBox.clear(50, 1000).addText("Lets see what tv has to offer").build();
 			}
@@ -62,13 +61,6 @@ public class TvCutscene extends Cutscene {
 				String bookTitle = "Oh a game show";
 				if(shows.size() > 0) bookTitle = shows.remove(0);
 				dialogueTextBox.clear(50, 1000).addText(bookTitle).build();
-			}
-
-			if(stage == 4) {
-				String bookEndQuote = "That was good";
-				if(timesDone > 5) bookEndQuote = "I could have binged my favorite show in that time";
-
-				dialogueTextBox.clear(50, 1000).addText(bookEndQuote).build();
 			}
 		}
 
