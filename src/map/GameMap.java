@@ -56,7 +56,7 @@ public class GameMap implements GameLoopObject {
 			}
 		}
 
-		coffee = new Basic2DEntity(-0.25f, .75f, 1, 2, "coffee_machine", true);
+		coffee = new Basic2DEntity(-0.25f, .75f, 1, 2, "coffee_machine", new CoffeCutscene());
 		entities.add(coffee);
 
 		sink = new Basic2DEntity(-0.75f, 0.75f, 1, 2, "sink", new SinkCutscene());

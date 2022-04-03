@@ -18,7 +18,8 @@ public class Player extends Entity {
 			reading = new Sprite("player_book"),
 			sitting = new Sprite("player_tv"),
 			dancing = new Sprite(100, "player_dance", 10),
-			splishSplash = new Sprite(100, "player_wash", 2);
+			splishSplash = new Sprite(100, "player_wash", 2),
+			drink = new Sprite(100, "player_drink", 4)
 	;
 
 	private float x, y;
