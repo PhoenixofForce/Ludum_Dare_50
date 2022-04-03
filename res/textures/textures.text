@@ -1,4 +1,4 @@
-69
+79
 bar_mask 448 256 64 16
 bar_anim_0 448 0 64 16
 bar_anim_1 448 16 64 16
@@ -42,6 +42,10 @@ living_2 32 80 16 16
 living_3 48 80 16 16
 floor_kitchen 64 96 16 16
 kitchen 64 80 16 16
+coffee_machine 256 16 16 32
+coffee_machine_used 288 16 16 32
+sink 272 16 16 32
+sink_used 304 16 16 32
 player_idle_0 32 256 48 48
 player_walk_0 32 304 48 48
 player_walk_1 80 304 48 48
@@ -68,3 +72,9 @@ player_dance_6 320 448 48 48
 player_dance_7 368 448 48 48
 player_dance_8 416 448 48 48
 player_dance_9 464 448 48 48
+player_wash_0 256 304 48 48
+player_wash_1 304 304 48 48
+player_drink_0 112 256 48 48
+player_drink_1 160 256 48 48
+player_drink_2 208 256 48 48
+player_drink_3 256 256 48 48

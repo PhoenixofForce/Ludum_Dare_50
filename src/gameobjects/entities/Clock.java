@@ -2,8 +2,6 @@ package gameobjects.entities;
 
 import gameobjects.Entity;
 
-import java.util.Arrays;
-
 public class Clock extends Entity {
 
 	private long time;
@@ -26,7 +24,13 @@ public class Clock extends Entity {
 
 	public String timeString() {
 		int[] timeParts = toTime();
-		return (timeParts[0] % 24) + ":" + timeParts[1];
+		String hours = (timeParts[0] % 24) + "";
+		if(hours.length() == 1) hours = "0" + hours;
+
+		String minutes = timeParts[1] + "";
+		if(minutes.length() == 1) minutes = "0" + minutes;
+
+		return  hours + ":" + minutes;
 	}
 
 }

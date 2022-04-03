@@ -24,6 +24,9 @@ public class GameMap implements GameLoopObject {
 	public Basic2DEntity bookcase;
 	public Basic2DEntity discs;
 	public Basic2DEntity pc;
+	public Basic2DEntity fridge;
+	public Basic2DEntity coffee;
+	public Basic2DEntity sink;
 
 	public Clock clock;
 
@@ -53,7 +56,14 @@ public class GameMap implements GameLoopObject {
 			}
 		}
 
-		entities.add(new Basic2DEntity(-1.5f, 0.5f, "fridge", true));
+		coffee = new Basic2DEntity(-0.25f, .75f, 1, 2, "coffee_machine", true);
+		entities.add(coffee);
+
+		sink = new Basic2DEntity(-0.75f, 0.75f, 1, 2, "sink", new SinkCutscene());
+		entities.add(sink);
+
+		fridge = new Basic2DEntity(-1.5f, 0.5f, "fridge", true);
+		entities.add(fridge);
 
 		entities.add(new Basic2DEntity(-1.5f, 1f, "clock", new ClockCutscene()));
 
