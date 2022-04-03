@@ -1,4 +1,4 @@
-93
+105
 bar_mask 448 256 64 16
 bar_anim_0 448 0 64 16
 bar_anim_1 448 16 64 16
@@ -92,3 +92,15 @@ player_eat_9 432 512 48 48
 player_eat_10 480 512 48 48
 player_eat_11 528 512 48 48
 player_eat_12 576 512 48 48
+player_handy 176 400 48 48
+player_fall_0 0 560 48 48
+player_fall_1 48 560 48 48
+player_fall_2 96 560 48 48
+player_sleep_0 96 560 48 48
+player_sleep_1 144 560 48 48
+player_sleep_2 192 560 48 48
+player_sleep_3 240 560 48 48
+player_sleep_4 288 560 48 48
+player_sleep_5 336 560 48 48
+player_sleep_6 384 560 48 48
+player_sleep_7 96 560 48 48

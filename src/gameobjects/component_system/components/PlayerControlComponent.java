@@ -7,6 +7,7 @@ import map.cutscenes.Cutscene;
 import map.cutscenes.OpeningCutscene;
 import meshes.dim2.Sprite;
 import org.joml.Vector3f;
+import window.Window;
 
 public class PlayerControlComponent extends Component {
 
@@ -49,14 +50,16 @@ public class PlayerControlComponent extends Component {
 			return;
 		}
 
-		if(Math.abs(currentScene.getGoal() - position.getPosition().z) >= maxXDistance) {
-			float dir = Math.signum(currentScene.getGoal() - position.getPosition().z);
-			p.flip(dir > 0);
+		if(!Window.INSTANCE.map.done) {
+			if(Math.abs(currentScene.getGoal() - position.getPosition().z) >= maxXDistance) {
+				float dir = Math.signum(currentScene.getGoal() - position.getPosition().z);
+				p.flip(dir > 0);
 
-			position.add(new Vector3f(0, 0, dir * dts));
+				position.add(new Vector3f(0, 0, dir * dts));
 
-			p.setSprite(Player.walk);
-			return;
+				p.setSprite(Player.walk);
+				return;
+			}
 		}
 
 		currentScene.activate();

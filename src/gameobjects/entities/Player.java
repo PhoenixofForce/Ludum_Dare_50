@@ -11,6 +11,7 @@ import meshes.dim2.Sprite;
 import meshes.loader.ObjHandler;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
+import window.Window;
 
 public class Player extends Entity {
 
@@ -22,7 +23,10 @@ public class Player extends Entity {
 			dancing = new Sprite(100, "player_dance", 10),
 			splishSplash = new Sprite(100, "player_wash", 2),
 			drink = new Sprite(100, "player_drink_0", "player_drink_1", "player_drink_1", "player_drink_2", "player_drink_2", "player_drink_1", "player_drink_1", "player_drink_2", "player_drink_2", "player_drink_3", "player_drink_4"),
-			eat = new Sprite(100, "player_eat", 13)
+			eat = new Sprite(100, "player_eat", 13),
+			handy = new Sprite("player_handy"),
+			fall = new Sprite(300, "player_fall", 3),
+			sleep = new Sprite(100, "player_sleep", 8)
 			;
 
 	private float x, y;
@@ -89,14 +93,16 @@ public class Player extends Entity {
 	}
 
 	public void addTiredness(double v) {
+		int hours = Window.INSTANCE.map.clock.toTime()[0];
+		float playerBonus = hours > 26? 2: 1;
+
 		if(coffCount > 0) {
 			float factor = (float) (MathUtils.map(coffStart, -coffDuration, coffDuration, 1, 2) * Math.log(coffCount + 1));
-			System.out.println(v + " " + factor);
 			if(coffDuration < 0 && v > 0) v *= factor / 2f;	//if the negatative effect is happening, increase the negative effects
 			if(coffDuration > 0 && v < 0) v*= factor;
-			System.out.println(v);
 		}
-		this.tiredness = (float) Math.max(0, tiredness + v);
+		if(v > 0) v /= playerBonus;
+		if(!Window.INSTANCE.map.done) this.tiredness = (float) Math.max(0, tiredness + v);
 	}
 
 	public float getTiredness() {

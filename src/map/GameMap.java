@@ -30,6 +30,8 @@ public class GameMap implements GameLoopObject {
 
 	public Clock clock;
 
+	public boolean done = false;
+
 	public GameMap() {
 		entities = new ArrayList<>();
 	}
@@ -88,15 +90,28 @@ public class GameMap implements GameLoopObject {
 		player = new Player(-2.25f, 0.25f);
 	}
 
+	private SuccessCutscene success = new SuccessCutscene();
+	private FailCutscene fail = new FailCutscene();
+
 	@Override
 	public void update(long dt) {
-		clock.update(dt);
+		if(!done) clock.update(dt);
 
 		float[] mouse = Window.INSTANCE.translateToMapSpace(InputHandler.mouseX, InputHandler.mouseY);
 		entities.forEach(e -> e.hoverOver(mouse[0], mouse[1]));
 
 		entities.forEach(e -> e.update(dt));
 		player.update(dt);
+
+		if(clock.timeString().startsWith("03")) {
+			success.init();
+			player.setScene(success);
+			done = true;
+		} else if(player.getTiredness() >= 1) {
+			fail.init();
+			player.setScene(fail);
+			done = true;
+		}
 	}
 
 	@Override
@@ -111,6 +126,8 @@ public class GameMap implements GameLoopObject {
 	}
 
 	public void handleClick(float x, float y) {
+		if(done) return;
+
 		Cutscene scene = null;
 		for(Basic2DEntity e: entities) {
 			if(e.handleClick(x, y)) {

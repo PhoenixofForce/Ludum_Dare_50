@@ -168,7 +168,7 @@ public class Window extends BasicColorGuiElement {
 
 	private void update(long dt) {
 		if(text != null) {
-			text.clear().addText(map.player.getTiredness() + "").build();
+			//text.clear().addText(map.player.getTiredness() + "").build();
 		}
 
 		updateGui(dt);
